@@ -9,6 +9,11 @@
 
     <!-- jsPDF -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+        <!-- For PDF processing -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+
+    <!-- For DOC/DOCX processing -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.4.2/mammoth.browser.min.js"></script>
     <title>QuickLearn AI</title>
     <link rel="stylesheet" href="styles.css">
 </head>
@@ -20,6 +25,16 @@
                 <div class="logo-icon">🤖</div>
                 <h1>QuickLearn AI</h1>
             </div>
+             <!-- Loading and Logging Section -->
+            <div class="status-bar" id="statusBar">
+                <div class="container">
+                    <div class="status-content">
+                        <div class="loading-spinner" id="loadingSpinner"></div>
+                        <span class="status-message" id="statusMessage">Welcome to Quick learn!</span>
+                    </div>
+                </div>
+            </div>
+
             <div class="header-controls">
                 <button class="theme-toggle" id="themeToggle">
                     <span class="theme-icon">🌙</span>
@@ -29,16 +44,7 @@
         </div>
     </header>
 
-    <!-- Loading and Logging Section -->
-    <div class="status-bar" id="statusBar">
-        <div class="container">
-            <div class="status-content">
-                <div class="loading-spinner" id="loadingSpinner"></div>
-                <span class="status-message" id="statusMessage">Ready</span>
-            </div>
-        </div>
-    </div>
-
+   
     <!-- Main Section -->
     <main class="main-content">
         <div class="container">
@@ -50,6 +56,9 @@
                         <p>Enter the article context</p>
                     </div>
                     <div class="input-form">
+                        <label for="fileInput">Upload a document:</label>
+                        <input type="file" class="upload" id="fileInput" accept=".pdf,.docx" />
+                        <p>or</p>
                         <textarea 
                             id="userInput" 
                             placeholder="Type here..."
@@ -59,10 +68,7 @@
                             <span class="btn-text">Submit</span>
                             <span class="btn-icon">→</span>
                         </button>
-                        <!-- <button class="Export-btn" id="exportBtn">
-                            <span class="btn-text">Save Notes</span>
-                            <span class="btn-icon">→</span>
-                        </button> -->
+                        
                     </div>
                 </div>
 
@@ -150,6 +156,7 @@
     
     <script  type="module" src="quiz.js"></script>
     <script  type="module" src="pdfexporter.js"></script>
+    <script  type="module" src="documentExtractor.js"></script>
     <script  type="module" src="app.js"></script>
     <script  type="module" src="animate.js"></script>
 </body>

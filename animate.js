@@ -1,11 +1,12 @@
 import {gen_summary,gen_questions,extractJsonFromLLMResponse,initLLM} from "./app.js";
 import QuizGame from "./quiz.js";
 import { exportTextPDF } from "./pdfexporter.js";
+import DocumentTextExtractor from "./documentExtractor.js";
 
 const SubmitBtn =document.getElementById("submitBtn");
 const ExportBtn = document.createElement("button");
-
-
+const FileUploadBtn = document.getElementById("fileInput")
+const input= document.getElementById("userInput");
 // Theme Management
 class ThemeManager {
     constructor() {
@@ -146,10 +147,31 @@ function handleSubmit(txt){
 SubmitBtn.addEventListener("click", () => { 
     // console.log("clicked....");
     //fetch article from text area
-    const inputprompt= document.getElementById("userInput").value;
+    const inputprompt=input.value;
     if (!inputprompt || inputprompt.trim().length === 0) statusmanager.showMessage('please add some context .. ')
     else handleSubmit(inputprompt); });
 
-
+FileUploadBtn.addEventListener("change", function () {
+    const file = this.files[0];
+    if (file) {
+    //   console.log("File selected:", file.name);
+      // Pass to your text extractor class or function
+      const docExt = new DocumentTextExtractor();
+      if(docExt.isSupported(file)){
+          statusmanager.showLoading(`extracting content from [${file.name}] please wait!`);
+        docExt.extractAndCleanText(file).then(
+            text=>{
+                // console.log(text);
+                input.value=text;
+                statusmanager.hideLoading();
+            }
+        )
+        
+      }
+    } else {
+      console.log("No file selected.");
+    }
+    
+  });
 
 export{statusmanager}
