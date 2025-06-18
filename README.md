@@ -35,7 +35,8 @@ To develop a client-side AI assistant that:
 
 ## 🧱 Architecture Diagram
 
-*(You can embed an image here if you have one)*
+<!-- *(You can embed an image here if you have one)* -->
+![Architecture Diagram](QuickLearn.drawio.png)
 
 ---
 
